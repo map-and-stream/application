@@ -1,0 +1,6 @@
+C:/Users/Navid/Documents/SensorFusionTests/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/SensorFusionTests.dir
+C:/Users/Navid/Documents/SensorFusionTests/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/test.dir
+C:/Users/Navid/Documents/SensorFusionTests/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/Navid/Documents/SensorFusionTests/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Navid/Documents/SensorFusionTests/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/SensorFusionTests_autogen_timestamp_deps.dir
+C:/Users/Navid/Documents/SensorFusionTests/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/SensorFusionTests_autogen.dir
