@@ -1,0 +1,13 @@
+dns: 192.168.10.210
+hosts: guardsi.isiran.ir
+url: ...
+
+
+url keyclock
+request :
+curl -X POST \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=John+Doe&password=123456" \
+  https://example.com/api/submit
+
+

@@ -1,0 +1,146 @@
+# TODO List for Project map and stream
+###############################################################################################################################
+🔹 Task 1: Define Core Domain Interfaces for GIS Data
+Goal: Create a clean, abstract interface for handling GIS data operations that can be used across platforms.
+
+Deliverables:
+
+Define pure virtual interfaces (abstract classes) in C++ for:
+IGisDataProvider (load/save/query GIS features)
+IGisFeature (represent a point/line/polygon with metadata)
+IGisCoordinateTransformer (convert between coordinate systems)
+Write unit tests (using Google Test) that verify behavior against the interface, not implementations.
+Document assumptions and responsibilities (e.g., thread safety, coordinate system expectations).
+
+
+###############################################################################################################################
+🔹 Task 2: Design a Camera Stream Abstraction Layer
+Goal: Create a platform-agnostic interface for consuming and processing camera streams.
+
+Deliverables:
+
+Define interfaces:
+ICameraStreamSource (start/stop stream, emit frames)
+ICameraFrameProcessor (process raw frame data: e.g., resize, annotate)
+Implement a mock camera source that simulates frames (e.g., generates synthetic images).
+Ensure the design supports future plugins (e.g., OpenCV, GStreamer, or platform-native backends) without changing core logic.
+Write integration tests using the mock source.
+
+
+###############################################################################################################################
+🔸 Task 3: Implement Chat Message Entity & Repository Interface
+Goal: Model chat messages and define how they’re stored/retrieved—without tying to a specific database.
+
+Deliverables:
+
+Create a ChatMessage value object (sender ID, timestamp, text, message ID).
+Define IChatMessageRepository with methods like:
+save(const ChatMessage&)
+getMessagesSince(QDateTime)
+Implement an in-memory repository (for testing/demo).
+Write unit tests for message validation and repository behavior.
+
+
+###############################################################################################################################
+🔸 Task 4: Build a GIS Feature Validator (Core Logic Only)
+Goal: Validate GIS features based on business rules (e.g., “polygon must be closed”).
+
+Deliverables:
+
+Implement a GisFeatureValidator class that takes an IGisFeature and returns validation errors.
+Rules to implement:
+Points must have valid coordinates.
+Polygons must have ≥3 vertices and be closed.
+No external dependencies—pure C++ logic.
+Unit tests covering valid/invalid cases.
+
+
+
+###############################################################################################################################
+🔸 Task 5: Create a Chat Message DTO & JSON Serializer
+Goal: Enable chat messages to be serialized to/from JSON for network transport.
+
+Deliverables:
+
+Add toJson() and fromJson() static methods to ChatMessage.
+Use Qt’s QJsonDocument/QJsonObject (allowed—it’s cross-platform).
+Ensure no business logic is in the serializer (it only maps fields).
+Write round-trip tests: message → JSON → message == original.
+
+#################################################################################################################################
+🔹 Task 1 (Junior Developer): Sensor Data Modeling & Parsing
+Goal: Define clean data structures and parse raw sensor inputs.
+Deliverables:
+
+Create structs/classes for:
+RadarPoint (distance, velocity, azimuth)
+CameraDetection (bbox: x, y, w, h; class_id, confidence)
+FusedObject (x, y, velocity_x, velocity_y, class_id, source_sensors)
+Implement a parser that converts:
+CSV string → std::vector<RadarPoint>
+JSON string → std::vector<CameraDetection>
+Write unit tests for parsing edge cases (e.g., invalid CSV/JSON).
+Why it’s junior-friendly:
+Focuses on data modeling and basic I/O—no complex logic. Tests understanding of RAII, const-correctness, and error handling.
+
+##############################################################################################################################
+🔹 Task 2 (Mid-Level): Coordinate Transformation
+Goal: Convert radar data from polar to Cartesian coordinates.
+Deliverables:
+
+Implement a stateless utility class CoordinateTransformer with:
+std::vector<CartesianPoint> polarToCartesian(const std::vector<RadarPoint>& radarPoints)
+Handle edge cases (e.g., negative distance, NaN).
+Write unit tests with known inputs/outputs (e.g., (r=1, θ=0) → (x=1, y=0)).
+Clean Architecture Focus:
+
+Pure function (no side effects).
+Decoupled from sensor hardware specifics.
+
+#############################################################################################################################
+🔹 Task 3 (Mid-Level): Temporal Alignment of Sensor Data
+Goal: Align radar and camera detections that occurred at similar timestamps.
+Deliverables:
+
+Create a class SensorDataBuffer that:
+Stores radar/camera data with timestamps (std::chrono::milliseconds).
+Provides a method:
+std::pair<std::vector<RadarPoint>, std::vector<CameraDetection>> getAlignedData(int64_t timestamp, int64_t tolerance_ms)
+Use efficient data structures (e.g., std::deque + binary search).
+Write tests for alignment within/without tolerance window.
+Why it’s mid-level:
+Tests understanding of time-series data, performance (O(log n) lookups), and resource management.
+
+#############################################################################################################################
+🔹 Task 4 (Mid-Level): Simple Sensor Fusion (Rule-Based)
+Goal: Fuse aligned radar + camera data into FusedObject using basic rules.
+Deliverables:
+
+Implement FusionEngine class with:
+std::vector<FusedObject> fuse(const std::vector<RadarPoint>& radar, const std::vector<CameraDetection>& camera)
+Fusion rules:
+Match radar point to camera bbox if radar (x,y) is inside bbox.
+If matched: FusedObject uses camera class + radar velocity.
+If unmatched radar: create FusedObject with class="unknown".
+If unmatched camera: discard (radar is ground-truth for motion).
+Write tests for match/no-match scenarios.
+Clean Architecture Focus:
+
+Strategy pattern ready (rules could be injected later).
+No hardcoded thresholds (use config params).
+
+#############################################################################################################################
+🔹 Task 5 (Stretch / Advanced Mid-Level): Fusion Pipeline Orchestration
+Goal: Build a pipeline that chains Tasks 1–4 into a cohesive system.
+Deliverables:
+
+Create PerceptionPipeline class that:
+Takes raw radar (CSV) + camera (JSON) strings + timestamp.
+Outputs std::vector<FusedObject>.
+Use dependency injection:
+Inject parsers, transformer, aligner, and fusion engine.
+Write an integration test with end-to-end data flow.
+Why it’s advanced:
+Tests ability to compose modules, manage dependencies, and design for testability (mockable components).
+
+Last updated: October 9, 2025

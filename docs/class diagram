@@ -1,0 +1,87 @@
+Here's a textual breakdown of how the class diagram changes under Clean Architecture.
+
+ENTITIES (center)
++------------------------+
+|        Data            |
++------------------------+
+| - id, position, ...    |
++------------------------+
+| + updatePosition()     |
+| + toString()           |
++------------------------+
+
++-----------------------------+
+|    DataValidationRules      |
++-----------------------------+
+| + isValid(data)             |
+| + checkAltitude()           |
++-----------------------------+
+
+USE CASES (application layer)
++-----------------------------+
+|    SimulatorController      |
++-----------------------------+
+| - simulationState           |
+| - parameters                |
+| + startSimulation()         |
+| + stopSimulation()          |
+| + setParameters()           |
++-----------------------------+
+
++-----------------------------+
+|  SimulatorDataGenerator     |
++-----------------------------+
+| + generateData()            |
++-----------------------------+
+
++-----------------------------+
+|       DataProcessor         |
++-----------------------------+
+| + validateData(data)        |
+| + formatData(data)          |
++-----------------------------+
+
++-----------------------------+
+|       DataDispatcher        |
++-----------------------------+
+| - subscribers               |
+| + dispatchData(data)        |
++-----------------------------+
+
+INTERFACE ADAPTERS
++-----------------------------+
+|     ClientInterface         |
++-----------------------------+
+| + receiveData(data)         |
+| + visualizeData()           |
++-----------------------------+
+
++-----------------------------+
+|   IDataRepository (interface)|
++-----------------------------+
+| + storeData(data)           |
+| + retrieveData(id)          |
++-----------------------------+
+
++-----------------------------+
+|  DataRepositoryImpl (infra) |
++-----------------------------+
+| implements IDataRepository  |
++-----------------------------+
+
+FRAMEWORKS & DRIVERS (outer layer)
++-----------------------------+
+|     LoggingMonitoring       |
++-----------------------------+
+| - logs                      |
+| + logEvent()                |
+| + monitor()                 |
++-----------------------------+
+
++-----------------------------+
+|     DatabaseDriver (opt)    |
++-----------------------------+
+
++-----------------------------+
+|     WebUI / API Layer       |
++-----------------------------+

@@ -1,0 +1,16 @@
+{
+  "name": "mapandstream-backend",
+  "version": "1.0.0",
+  "description": "Backend C++ project using curl, eigen, geographiclib, googletest, jwt-cpp, opencv, and openssl.",
+  "dependencies": [
+    "curl",
+    "eigen3",
+    "geographiclib",
+    "gtest",
+    "jwt-cpp",
+    "opencv",
+    "openssl"
+  ],
+  "builtin-baseline": "50c0cb48a0cf2f6fc5c7b2c0d2bafbe26d0a7ca2"
+}
+

@@ -1,0 +1,83 @@
+Key Components in Simulator Data System:
+
+Simulator Data Generator
+
+Generates synthetic data (positions, speeds, altitudes, etc.).
+
+Data Processor
+
+Processes the generated data for validity and formatting.
+
+Data Repository
+
+Stores both real and simulated data.
+
+Data Dispatcher
+
+Sends data (simulated or real) to other system components or clients.
+
+Client Interface
+
+Receives and displays flight data (map visualizer, dashboards).
+
+Simulator Controller
+
+Manages simulation scenarios (start, stop, adjust parameters).
+
+Logging & Monitoring
+
+Logs simulator data activity and monitors system health.
+
+Component Diagram (textual representation):
++------------------------+
+| Simulator Controller    |
+| - manages simulation    |
++-----------+------------+
+            |                                            
+            v
++------------------------+
+| Simulator Data Generator|<----------------+
+| - creates synthetic data|                 |
++-----------+------------+                  |
+            |                               |
+            v                               |
++------------------------+                  |
+| Data Processor  |                  |
+| - validates and formats|                  |
++-----------+------------+                  |
+            |                               |
+            v                               |
++------------------------+                  |
+| Data Repository  |<----------------+
+| - stores real & simulated data            |
++-----------+------------+
+            |
+            v
++------------------------+
+| Data Dispatcher        |
+| - distributes data to  |
+|   clients & systems    |
++-----------+------------+
+            |
+            v
++------------------------+
+| Client Interface       |
+| - visualizes data      |
++------------------------+
+
++------------------------+
+| Logging & Monitoring   |
+| - logs & monitors data |
++------------------------+
+
+Explanation:
+
+The Simulator Controller commands the data generator to produce simulated.
+
+The Simulator Data Generator creates data which is then processed by the Data Processor.
+
+The processed data is stored in the Data Repository.
+
+The Data Dispatcher sends this data to the Client Interface for visualization.
+
+Throughout, the Logging & Monitoring component tracks system behavior.

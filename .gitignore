@@ -1,0 +1,31 @@
+# AL (Dynamics 365 Business Central)
+.vscode/
+.alcache/
+.alpackages/
+.snapshots/
+.output/
+*.app
+rad.json
+*.g.xlf
+*.flf
+TestResults.xml
+
+# Qt Build Outputs
+build/
+backend/build/
+frontend/build/
+bin/
+*.pro.user
+Makefile*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Miscellaneous
+TaskManager/qml/images/images - Shortcut.lnk
