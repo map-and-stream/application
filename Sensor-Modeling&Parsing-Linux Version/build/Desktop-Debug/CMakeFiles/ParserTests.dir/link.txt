@@ -1,0 +1,1 @@
+/bin/g++ -DQT_QML_DEBUG -g -Wl,--dependency-file=CMakeFiles/ParserTests.dir/link.d CMakeFiles/ParserTests.dir/ParserTests_autogen/mocs_compilation.cpp.o CMakeFiles/ParserTests.dir/parsers.cpp.o -o ParserTests
