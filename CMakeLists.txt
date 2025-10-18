@@ -1,21 +1,10 @@
-cmake_minimum_required(VERSION 3.16 FATAL_ERROR)  # only one minimum required
+cmake_minimum_required(VERSION 3.10.0)
+project(Authentication VERSION 0.1.0 LANGUAGES C CXX)
 
-project(
-    MapAndStream
-    VERSION 0.9
-    LANGUAGES CXX
+add_executable(Authentication 
+main.cpp
+User.cpp
+AuthService.cpp
+
 )
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Compiler warnings
-if (MSVC)
-    add_compile_options(/W3)  # W3 warning level, treat warnings as errors
-else()
-    add_compile_options(-Wall -Wextra -Wno-unused-parameter) # GCC/Clang
-endif()
-
-# Subdirectories
-add_subdirectory(backend)
-add_subdirectory(frontend)

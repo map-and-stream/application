@@ -1,15 +1,45 @@
-// Necessary header files for input output functions
 #include <iostream>
-using namespace std;
-#include "log/logger.h"
+#include "ConsoleUi.h"
+#include "RegisterUser.h"
+#include "AuthenticateUser.h"
+#include "InMemoryUserRepository.h"
 
-// main() function: where the execution of
-// C++ program begins
-int main() {
-  
-    // This statement prints "Hello World"
-    std::cout << "Hello World\n";
-    ConsoleLogger logger;
-    logger.Info("hello from sub-module logger");
-    return 0;
+
+int main(int, char**){
+    Infrastructure::InMemoryUserRepository userRepository;
+    Application::RegisterUser registerUser(userRepository);
+    Application::AuthenticateUser authenticateUser(userRepository);
+
+    Interface::ConsoleUi consoleUi(registerUser, authenticateUser);
+
+    int choice;
+
+    do
+    {
+        std::cout << "1. Register\n";
+        std::cout << "2. Login\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter your choice\n";
+
+        std::cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+                consoleUi.registerNewUser();
+                break;
+            case 2:
+                consoleUi.loginUser();
+                break;
+            case 3:
+                std::cout << "Exiting...\n";
+                break;
+            default:
+                std::cout << "Invalid choice. Try again.\n";
+        }
+
+    } while (choice != 3);
+    
+
+
 }
