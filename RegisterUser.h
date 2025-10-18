@@ -2,6 +2,7 @@
 #include <string>
 #include "UserRepository.h"
 #include "AuthService.h"
+#include <stdexcept>
 
 
 namespace Application
@@ -17,7 +18,7 @@ class RegisterUser
         {
             if(m_repository.findByUsername(username) != nullptr)
             {
-                std::__throw_runtime_error("Username already exists");
+                throw std::runtime_error("Username already exists");
             }
 
             std::string hashPassword = Domain::AuthService::hash(password);
